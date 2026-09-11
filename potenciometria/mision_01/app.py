@@ -185,3 +185,37 @@ st.success(
     Instrumento → mide la diferencia entre ambos.
     """
 )
+
+st.divider()
+
+st.subheader("🧠 Primero predecí, después medí")
+
+st.markdown(
+    """
+    Antes de mover los controles, intentá resolver mentalmente:
+
+    **Si el electrodo indicador está a 125 mV y la referencia a 200 mV,
+    ¿qué debería mostrar el instrumento?**
+    """
+)
+
+respuesta = st.number_input(
+    "Tu predicción de E_celda (mV)",
+    value=0.0,
+    step=1.0
+)
+
+resultado_correcto = 125.0 - 200.0
+
+if st.button("Comprobar respuesta"):
+
+    if abs(respuesta - resultado_correcto) < 0.1:
+        st.success(
+            f"✅ Correcto. E_celda = {resultado_correcto:.1f} mV"
+        )
+
+    else:
+        st.error(
+            "Todavía no. Recordá: "
+            "E_celda = E_indicador - E_referencia"
+        )
