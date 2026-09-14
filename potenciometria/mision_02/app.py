@@ -251,3 +251,144 @@ st.success(
     Esa relación está descrita por la ecuación de Nernst.
     """
 )
+
+# --------------------------------------------------
+# MUESTRA DESCONOCIDA
+# --------------------------------------------------
+
+st.divider()
+
+st.header("🕵️ Laboratorio de la muestra desconocida")
+
+st.markdown(
+    """
+    Hasta ahora conocíamos la actividad y calculábamos
+    el potencial.
+
+    Ahora vamos a resolver el problema inverso:
+
+    **el instrumento nos entrega un potencial y debemos
+    determinar la actividad química de la muestra.**
+    """
+)
+
+# Estado persistente de la muestra
+if "log_a_secreto" not in st.session_state:
+    st.session_state.log_a_secreto = -3.27
+
+if st.button("🎲 Generar nueva muestra"):
+    st.session_state.log_a_secreto = float(
+        np.random.uniform(-6.0, 0.0)
+    )
+
+log_a_secreto = st.session_state.log_a_secreto
+a_secreta = 10 ** log_a_secreto
+
+# Condiciones del experimento
+T_desconocida_c = 25.0
+T_desconocida_k = T_desconocida_c + 273.15
+
+n_desconocida = 1
+E0_desconocido_v = 0.0
+
+# Potencial producido por la muestra
+E_desconocido_v = (
+    E0_desconocido_v
+    + (
+        R
+        * T_desconocida_k
+        / (n_desconocida * F)
+    )
+    * np.log(a_secreta)
+)
+
+E_desconocido_mv = E_desconocido_v * 1000
+
+# --------------------------------------------------
+# INFORMACIÓN QUE RECIBE EL ESTUDIANTE
+# --------------------------------------------------
+
+c1, c2, c3, c4 = st.columns(4)
+
+c1.metric(
+    "Potencial medido",
+    f"{E_desconocido_mv:.2f} mV"
+)
+
+c2.metric(
+    "Temperatura",
+    f"{T_desconocida_c:.1f} °C"
+)
+
+c3.metric(
+    "n",
+    str(n_desconocida)
+)
+
+c4.metric(
+    "E°",
+    "0.00 mV"
+)
+
+st.warning(
+    """
+    La actividad real está oculta.
+
+    Utilizá la ecuación de Nernst para determinarla.
+    """
+)
+
+# --------------------------------------------------
+# RESPUESTA
+# --------------------------------------------------
+
+respuesta_log = st.number_input(
+    "Ingresá tu estimación de log₁₀(a)",
+    min_value=-10.0,
+    max_value=2.0,
+    value=-3.0,
+    step=0.01,
+    format="%.2f"
+)
+
+if st.button("🔬 Analizar muestra"):
+
+    error = abs(
+        respuesta_log
+        - log_a_secreto
+    )
+
+    if error <= 0.05:
+
+        st.success(
+            "✅ ¡Excelente! Identificaste correctamente "
+            "la actividad de la muestra."
+        )
+
+    elif error <= 0.20:
+
+        st.warning(
+            "🟡 Estás muy cerca. Revisá el cálculo "
+            "y las unidades."
+        )
+
+    else:
+
+        st.error(
+            "🔴 El resultado todavía está lejos. "
+            "Revisá cómo despejaste la ecuación de Nernst."
+        )
+
+    st.markdown(
+        f"""
+        ### Resultado experimental
+
+        **log₁₀(a) real:** {log_a_secreto:.3f}
+
+        **Actividad real:** {a_secreta:.3e}
+
+        **Tu estimación:** {respuesta_log:.3f}
+
+        **Error absoluto:** {error:.3f}
+        """
+    )
