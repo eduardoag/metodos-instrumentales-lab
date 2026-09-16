@@ -3,15 +3,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --------------------------------------------------
-# CONFIGURACIÓN
-# --------------------------------------------------
-
-st.set_page_config(
-    page_title="Misión 02 - Ecuación de Nernst",
-    page_icon="⚡",
-    layout="wide"
-)
 
 st.title("⚡ MISIÓN 02 — La ecuación de Nernst")
 
