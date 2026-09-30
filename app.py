@@ -221,12 +221,11 @@ def inicio():
             """
             ### ⚖️ Electrogravimetría
 
-            **DISPONIBLES · MISIONES 01, 02 Y 03**
+            **DISPONIBLE · 5 MISIONES COMPLETAS**
 
-            Construí tu celda electrolítica y descubrí
-            cómo la ley de Faraday relaciona
-            electricidad y masa depositada,
-            y controlá el transporte de materia.
+            Desde la construcción de la celda electrolítica
+            y la ley de Faraday hasta el control del proceso,
+            el pesaje y el análisis de un efluente industrial.
             """
         )
 
@@ -274,7 +273,7 @@ def inicio():
         """
         ### 🔬 Métodos que iremos incorporando
 
-        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01 a 04)
+        **Potenciometría** ✓ · **Electrogravimetría** ✓ (5 misiones cada una)
 
         Polarografía ·
         Cromatografía · Cromatografía gaseosa ·
