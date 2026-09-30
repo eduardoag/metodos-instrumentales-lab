@@ -22,7 +22,7 @@ from datetime import timedelta
 from hmac import compare_digest
 
 # Modo temporal de pruebas: True = acceso libre; False = horario y clave activos.
-MODO_PRUEBAS = True
+MODO_PRUEBAS = False
 
 TZ_TUCUMAN = ZoneInfo("America/Argentina/Tucuman")
 DIA_CLASE = 2  # lunes=0, miércoles=2
@@ -377,6 +377,14 @@ electro_mision_04 = st.Page(
 )
 
 
+electro_mision_05 = st.Page(
+    "modulos/electrogravimetria/mision_05.py",
+    title="Misión 05 · Efluente industrial",
+    icon="🏭",
+    url_path="electrogravimetria_mision_05"
+)
+
+
 # ============================================================
 # NAVEGACIÓN
 # ============================================================
@@ -399,7 +407,8 @@ pg = st.navigation(
             electro_mision_01,
             electro_mision_02,
             electro_mision_03,
-            electro_mision_04
+            electro_mision_04,
+            electro_mision_05
         ]
     }
 )
