@@ -221,11 +221,12 @@ def inicio():
             """
             ### ⚖️ Electrogravimetría
 
-            **DISPONIBLES · MISIONES 01 Y 02**
+            **DISPONIBLES · MISIONES 01, 02 Y 03**
 
             Construí tu celda electrolítica y descubrí
             cómo la ley de Faraday relaciona
-            electricidad y masa depositada.
+            electricidad y masa depositada,
+            y controlá el transporte de materia.
             """
         )
 
@@ -273,7 +274,7 @@ def inicio():
         """
         ### 🔬 Métodos que iremos incorporando
 
-        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01 y 02)
+        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01, 02 y 03)
 
         Polarografía ·
         Cromatografía · Cromatografía gaseosa ·
@@ -360,6 +361,14 @@ electro_mision_02 = st.Page(
 )
 
 
+electro_mision_03 = st.Page(
+    "modulos/electrogravimetria/mision_03.py",
+    title="Misión 03 · Control del proceso",
+    icon="🎛️",
+    url_path="electrogravimetria_mision_03"
+)
+
+
 # ============================================================
 # NAVEGACIÓN
 # ============================================================
@@ -380,7 +389,8 @@ pg = st.navigation(
 
         "⚖️ Electrogravimetría": [
             electro_mision_01,
-            electro_mision_02
+            electro_mision_02,
+            electro_mision_03
         ]
     }
 )
