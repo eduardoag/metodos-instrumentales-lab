@@ -22,7 +22,7 @@ from datetime import timedelta
 from hmac import compare_digest
 
 # Modo temporal de pruebas: True = acceso libre; False = horario y clave activos.
-MODO_PRUEBAS = False
+MODO_PRUEBAS = True
 
 TZ_TUCUMAN = ZoneInfo("America/Argentina/Tucuman")
 DIA_CLASE = 2  # lunes=0, miércoles=2
@@ -274,7 +274,7 @@ def inicio():
         """
         ### 🔬 Métodos que iremos incorporando
 
-        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01, 02 y 03)
+        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01 a 04)
 
         Polarografía ·
         Cromatografía · Cromatografía gaseosa ·
@@ -369,6 +369,14 @@ electro_mision_03 = st.Page(
 )
 
 
+electro_mision_04 = st.Page(
+    "modulos/electrogravimetria/mision_04.py",
+    title="Misión 04 · Pesaje y recuperación",
+    icon="⚗️",
+    url_path="electrogravimetria_mision_04"
+)
+
+
 # ============================================================
 # NAVEGACIÓN
 # ============================================================
@@ -390,7 +398,8 @@ pg = st.navigation(
         "⚖️ Electrogravimetría": [
             electro_mision_01,
             electro_mision_02,
-            electro_mision_03
+            electro_mision_03,
+            electro_mision_04
         ]
     }
 )
