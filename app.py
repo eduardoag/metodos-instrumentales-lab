@@ -21,6 +21,9 @@ st.set_page_config(
 from datetime import timedelta
 from hmac import compare_digest
 
+# Modo temporal de pruebas: True = acceso libre; False = horario y clave activos.
+MODO_PRUEBAS = False
+
 TZ_TUCUMAN = ZoneInfo("America/Argentina/Tucuman")
 DIA_CLASE = 2  # lunes=0, miércoles=2
 HORA_INICIO = time(14, 30)
@@ -96,7 +99,7 @@ ahora = hora_local()
 acceso_docente = st.session_state.docente_autenticado
 laboratorio_abierto = horario_de_clase(ahora)
 
-if not (laboratorio_abierto or acceso_docente):
+if not (MODO_PRUEBAS or laboratorio_abierto or acceso_docente):
     st.title("🔬 Métodos Instrumentales Lab")
     st.warning("🔒 Laboratorio cerrado")
     st.markdown(
@@ -124,7 +127,9 @@ if not (laboratorio_abierto or acceso_docente):
 
 # Control visible en la barra lateral de la aplicación habilitada.
 with st.sidebar:
-    if acceso_docente:
+    if MODO_PRUEBAS:
+        st.info("🧪 Modo de pruebas: acceso libre temporal")
+    elif acceso_docente:
         st.success("🔑 Sesión docente")
         if st.button("Cerrar sesión docente", key="salir_docente"):
             st.session_state.docente_autenticado = False
@@ -216,13 +221,11 @@ def inicio():
             """
             ### ⚖️ Electrogravimetría
 
-            🔒 Próximamente
+            **DISPONIBLES · MISIONES 01 Y 02**
 
-            **Pregunta futura:**
-
-            ¿Podemos determinar cuánto analito
-            existe convirtiéndolo en materia
-            y pesándolo?
+            Construí tu celda electrolítica y descubrí
+            cómo la ley de Faraday relaciona
+            electricidad y masa depositada.
             """
         )
 
@@ -270,9 +273,9 @@ def inicio():
         """
         ### 🔬 Métodos que iremos incorporando
 
-        **Potenciometría** ✓
+        **Potenciometría** ✓ · **Electrogravimetría** (Misiones 01 y 02)
 
-        Electrogravimetría · Polarografía ·
+        Polarografía ·
         Cromatografía · Cromatografía gaseosa ·
         HPLC · Espectrometría de masas ·
         UV-Visible · Infrarrojo ·
@@ -309,31 +312,51 @@ pagina_inicio = st.Page(
 mision_01 = st.Page(
     "modulos/potenciometria/mision_01.py",
     title="Misión 01 · Electricidad",
-    icon="⚡"
+    icon="⚡",
+    url_path="potenciometria_mision_01"
 )
 
 mision_02 = st.Page(
     "modulos/potenciometria/mision_02.py",
     title="Misión 02 · Nernst",
-    icon="📈"
+    icon="📈",
+    url_path="potenciometria_mision_02"
 )
 
 mision_03 = st.Page(
     "modulos/potenciometria/mision_03.py",
     title="Misión 03 · pH-metro",
-    icon="🧪"
+    icon="🧪",
+    url_path="potenciometria_mision_03"
 )
 
 mision_04 = st.Page(
     "modulos/potenciometria/mision_04.py",
     title="Misión 04 · Calibración",
-    icon="🎯"
+    icon="🎯",
+    url_path="potenciometria_mision_04"
 )
 
 mision_05 = st.Page(
     "modulos/potenciometria/mision_05.py",
     title="Misión 05 · Investigá el río",
-    icon="🌊"
+    icon="🌊",
+    url_path="potenciometria_mision_05"
+)
+
+
+electro_mision_01 = st.Page(
+    "modulos/electrogravimetria/mision_01.py",
+    title="Misión 01 · Celda electrolítica",
+    icon="⚖️",
+    url_path="electrogravimetria_mision_01"
+)
+
+electro_mision_02 = st.Page(
+    "modulos/electrogravimetria/mision_02.py",
+    title="Misión 02 · Ley de Faraday",
+    icon="🧮",
+    url_path="electrogravimetria_mision_02"
 )
 
 
@@ -353,6 +376,11 @@ pg = st.navigation(
             mision_03,
             mision_04,
             mision_05
+        ],
+
+        "⚖️ Electrogravimetría": [
+            electro_mision_01,
+            electro_mision_02
         ]
     }
 )
